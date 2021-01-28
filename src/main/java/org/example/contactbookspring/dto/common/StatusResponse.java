@@ -1,4 +1,4 @@
-package org.example.contactbookspring.dto;
+package org.example.contactbookspring.dto.common;
 
 import lombok.Data;
 
