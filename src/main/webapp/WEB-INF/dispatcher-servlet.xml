@@ -7,12 +7,27 @@
 
     <bean id="jacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
 
+    <bean class="com.zaxxer.hikari.HikariConfig" id="hikariConfig">
+        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/contactsjdbs"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value=""/>
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+    </bean>
+
+    <bean class="com.zaxxer.hikari.HikariDataSource" id="hikariDataSource">
+        <constructor-arg index="0" ref="hikariConfig"/>
+    </bean>
+
+    <bean class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" name="jdbcTemplate">
+        <constructor-arg index="0" ref="hikariDataSource"/>
+    </bean>
+
     <context:component-scan base-package="org.example.contactbookspring"/>
 
     <mvc:annotation-driven>
         <mvc:message-converters register-defaults="true">
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper" ref="jacksonObjectMapper" />
+                <property name="objectMapper" ref="jacksonObjectMapper"/>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>

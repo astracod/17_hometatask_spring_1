@@ -1,5 +1,7 @@
 package org.example.contactbookspring.services;
 
+import lombok.RequiredArgsConstructor;
+import org.example.contactbookspring.dao.ContactsDao;
 import org.example.contactbookspring.entities.Contact;
 import org.springframework.stereotype.Service;
 
@@ -10,28 +12,31 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ContactsService {
+    private final ContactsDao contactsDao;
 
-    private List<Contact> contactList = new LinkedList<>();
-
-    public boolean add(Contact contact) {
+    public void add(Contact contact) {
         contact.setId(UUID.randomUUID().toString());
-        return contactList.add(contact);
+        contactsDao.add(contact);
     }
 
     public void remove(String id) {
-
-        contactList = contactList.stream()
+        /*contactList = contactList.stream()
                 .filter(c -> !Objects.equals(c.getId(), id))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
+    }
 
+    public List<Contact> findByName(String name) {
+        return null;
+    }
+
+    public List<Contact> findNumberPart(String numberPart) {
+        return null;
     }
 
     public List<Contact> getAll() {
-        for (Contact contact : contactList) {
-            System.out.println(contact);
-        }
-        return contactList;
+        return contactsDao.getAll();
     }
 
 }
