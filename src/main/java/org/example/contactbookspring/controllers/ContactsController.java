@@ -59,7 +59,7 @@ public class ContactsController {
         return statusResponse;
     }
 
-    // создать dto и возвращать его через свой мапер
+
     @PostMapping("/name")
     public GetContactsResponse findByName(@RequestBody FindByNameRequest request) {
         try {

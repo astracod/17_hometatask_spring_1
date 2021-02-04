@@ -1,15 +1,12 @@
 package org.example.contactbookspring.dao.implementation;
 
-import lombok.NoArgsConstructor;
+
 import lombok.RequiredArgsConstructor;
 import org.example.contactbookspring.dao.ContactsDao;
 import org.example.contactbookspring.entities.Contact;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -68,7 +65,7 @@ public class ContactJdbcDao implements ContactsDao {
     }
 
 
-    // "SELECT id, name , phone FROM contacts WHERE name LIKE ?"
+
     @Override
     public List<Contact> findNumberPart(String numberPart) {
         return jdbcTemplate.query(
