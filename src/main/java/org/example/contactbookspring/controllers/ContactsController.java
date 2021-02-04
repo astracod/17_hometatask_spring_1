@@ -2,11 +2,9 @@ package org.example.contactbookspring.controllers;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.contactbookspring.dto.contacts.*;
 import org.example.contactbookspring.entities.Contact;
 import org.example.contactbookspring.services.ContactsService;
-import org.example.contactbookspring.dto.contacts.AddContactRequest;
-import org.example.contactbookspring.dto.contacts.DeleteContactRequest;
-import org.example.contactbookspring.dto.contacts.GetContactsResponse;
 import org.example.contactbookspring.dto.common.StatusResponse;
 import org.example.contactbookspring.mappers.ContactsMapper;
 import org.springframework.web.bind.annotation.*;
@@ -59,10 +57,33 @@ public class ContactsController {
             statusResponse.setMessage(e.getMessage());
         }
         return statusResponse;
+    }
 
+    // создать dto и возвращать его через свой мапер
+    @PostMapping("/name")
+    public GetContactsResponse findByName(@RequestBody FindByNameRequest request) {
+        try {
+           List<Contact> contacts = service.findByName(request.getName());
+            return mapper.toGetContactsResponse(contacts);
+        } catch (Exception e) {
+            return GetContactsResponse.error(e.getMessage());
+        }
+    }
+
+    @PostMapping("/number")
+    public GetContactsResponse findNumberPart(@RequestBody FindNumberPartRequest request){
+        try {
+            List<Contact> contacts = service.findNumberPart(request.getNumber());
+            return mapper.toGetContactsResponse(contacts);
+        } catch (Exception e) {
+            return GetContactsResponse.error(e.getMessage());
+        }
     }
 
 }
 // запросы в терминале идеи
-// curl -XPOST http://localhost:8080/contactbookspring/add -H "Content-Type:application/json" -d"{\"name\":\"Dima\",\"number\":963258}"
+// curl -XPOST http://localhost:8080/contactbookspring/number -H "Content-Type:application/json" -d"{\"number\":\"63\"}"
+// curl -XPOST http://localhost:8080/contactbookspring/add -H "Content-Type:application/json" -d"{\"name\":\"Dima\",\"number\":\"963258\"}"
 // curl -XPOST http://localhost:8080/contactbookspring/remove -H "Content-Type:application/json" -d"{\"id\":\"e69c7ed5-7f83-4af4-8e0c-8fbc0e2c6c15\"}"
+// curl -XPOST http://localhost:8080/contactbookspring/name -H "Content-Type:application/json" -d"{\"name\":\"Dima\"}"
+// curl -XGET http://localhost:8080/contactbookspring/

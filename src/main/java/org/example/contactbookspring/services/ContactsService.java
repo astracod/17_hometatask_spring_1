@@ -5,11 +5,9 @@ import org.example.contactbookspring.dao.ContactsDao;
 import org.example.contactbookspring.entities.Contact;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,17 +20,15 @@ public class ContactsService {
     }
 
     public void remove(String id) {
-        /*contactList = contactList.stream()
-                .filter(c -> !Objects.equals(c.getId(), id))
-                .collect(Collectors.toList());*/
+        contactsDao.remove(id);
     }
 
     public List<Contact> findByName(String name) {
-        return null;
+        return contactsDao.findByName(name);
     }
 
     public List<Contact> findNumberPart(String numberPart) {
-        return null;
+        return contactsDao.findNumberPart(numberPart);
     }
 
     public List<Contact> getAll() {
