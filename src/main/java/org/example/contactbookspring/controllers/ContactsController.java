@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("api")
 public class ContactsController {
 
     private final ContactsService service;

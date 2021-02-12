@@ -25,11 +25,6 @@ public class ContactJdbcDao implements ContactsDao {
         return jdbcTemplate.query(
                 "SELECT id, name , number FROM contactsjdbc",
                 new BeanPropertyRowMapper<>(Contact.class)
-                /*(rs, i) -> new Contact(
-                        rs.getString("id"),
-                        rs.getString("name"),
-                        rs.getString("number")
-                )*/
         );
     }
 
@@ -38,11 +33,6 @@ public class ContactJdbcDao implements ContactsDao {
         jdbcTemplate.update(
                 "INSERT INTO contactsjdbc(id,name,number) values (:id,:name,:number)",
                 new BeanPropertySqlParameterSource(contact)
-                /*Map.of(
-                        "id", contact.getId(),
-                        "name", contact.getName(),
-                        "number", contact.getNumber()
-                )*/
         );
     }
 
@@ -63,7 +53,6 @@ public class ContactJdbcDao implements ContactsDao {
                 new BeanPropertyRowMapper<>(Contact.class)
         );
     }
-
 
 
     @Override
